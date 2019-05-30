@@ -119,6 +119,29 @@ app.post('/TaskApprove', (req, res, next) => {
 
 
 
+app.post('/addtaskk', (req, res, next) => {
+           
+          var taskk =JSON.stringify(req.body.taskk);
+          var id =req.body.id;
+          
+      
+        
+            addtaskk.update({'_id': id}, {'$set': {
+                    'taskk': taskk,
+                                
+                        }}).then(result=>{
+                                 return res.status(201).json({message:"Task Added successfully",  status: true});
+
+                     });
+                                                       
+    
+
+
+
+});
+
+
+
 
 
 module.exports = app;

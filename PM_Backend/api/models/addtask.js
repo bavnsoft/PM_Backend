@@ -9,6 +9,10 @@ const addtask = new Schema({
     status: { type: String},
     timeout: { type: String},
     user_id: { type: Schema.Types.ObjectId, ref: "employee" },
+     taskk: { type: String,unique : true},
+     name: { type: String,unique : true},
+    description: { type: String,unique : true},
+    hours: { type: String,unique : true},
      })
 
 module.exports = mongoose.model('Task', addtask);
