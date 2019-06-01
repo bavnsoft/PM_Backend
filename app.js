@@ -71,6 +71,22 @@ app.post('/addstatus', (req, res, next) => {
     
 
 });
+app.post('/getproject', (req, res, next) => {
+
+          var user_id =req.body.user_id;
+
+            console.log(user_id)
+            project.find({}).then(result=>{
+                    return res.status(200).json({
+                              result: result,
+                              status: true,
+                              
+                    });
+            });
+
+    
+
+});
 
 	const options = {
 	  useNewUrlParser: true,
