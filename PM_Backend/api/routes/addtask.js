@@ -146,7 +146,7 @@ app.post('/addmilestone', (req, res, next) => {
 
 
 
-app.post('/getproject', (req, res, next) => {
+/*app.post('/getproject', (req, res, next) => {
 
 
 
@@ -172,7 +172,7 @@ app.post('/getproject', (req, res, next) => {
 
     
 
-});
+});*/
 
 
 
