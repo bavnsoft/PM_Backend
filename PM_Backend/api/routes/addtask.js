@@ -11,21 +11,25 @@ const cryptr = new Cryptr('myTotalySecretKey');
 
 
 app.post('/addtask', (req, res, next) => {
-
+	
 
 
 	let Data = new addtask({
-		 discription: req.body.discription,
+		 discription: JSON.stringify(req.body.description),
 		 date: moment(),
 		 user_id:req.body.user_id,
+		 project_id:JSON.stringify(req.body.projectName) ,
+		 Hours:JSON.stringify(req.body.Hours),
 		 status:"Disapprove",
 	 });
 
 
 let Data1 = new newtask({
-		 discription: req.body.discription,
+		 discription: JSON.stringify(req.body.description),
 		 date: moment(),
 		 user_id:req.body.user_id,
+		 project_id:JSON.stringify(req.body.projectName) ,
+		 Hours:JSON.stringify(req.body.Hours),
 		 status:"Disapprove",
 	 });
 
@@ -38,7 +42,7 @@ let Data1 = new newtask({
 		        Data1.save()
 				   .then(newtask => {
 					   return res.status(200).json({
-				          message: "You Have Save Successfully",
+				          message: "Task added Successfully",
 				          status: true,
 				         
 				        });
@@ -88,7 +92,7 @@ app.post('/getalltask', (req, res, next) => {
 
 	console.log(user_id)
 	addtask.find({}).populate('user_id','employeename').then(result=>{
-		console.log(result,'----');
+		console.log(JSON.stringify(result[0].discription));
 			return res.status(200).json({
 			          result: result,
 			          status: true,
@@ -119,18 +123,18 @@ app.post('/TaskApprove', (req, res, next) => {
 
 
 
-app.post('/addtaskk', (req, res, next) => {
+app.post('/addmilestone', (req, res, next) => {
            
-          var taskk =JSON.stringify(req.body.taskk);
+          var milestone =JSON.stringify(req.body.milestone);
           var id =req.body.id;
           
       
         
-            addtaskk.update({'_id': id}, {'$set': {
-                    'taskk': taskk,
+            project.update({'_id': id}, {'$set': {
+                    'milestone': milestone,
                                 
                         }}).then(result=>{
-                                 return res.status(201).json({message:"Task Added successfully",  status: true});
+                                 return res.status(201).json({message:"Milestone Added successfully",  status: true});
 
                      });
                                                        
@@ -140,6 +144,35 @@ app.post('/addtaskk', (req, res, next) => {
 
 });
 
+
+
+/*app.post('/getproject', (req, res, next) => {
+
+
+
+                      let Data = new getproject({
+					  NodeProject: req.body.NodeProject,
+					  PhpProject: req.body.PhpProject,
+					  ReactProject: req.body.ReactProject,
+					  AngularProject: req.body.AngularProject,
+					  WordpressProject: req.body.WordpressProject,
+				       NetProject: req.body.NetProject,
+
+				 });
+          var user_id =req.body.user_id;
+
+            console.log(user_id)
+            getproject.find({}).then(result=>{
+                    return res.status(200).json({
+                              result: result,
+                              status: true,
+                              
+                    });
+            });
+
+    
+
+});*/
 
 
 
