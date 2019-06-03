@@ -11,7 +11,6 @@ const Cryptr = require('cryptr');
 const moment = require('moment');
 const cryptr = new Cryptr('myTotalySecretKey');
 
-var transporter = nodemailer.createtransport('smtps://sumitchoudhary727@gmail.com:sumit1994');
 app.post('/addleaves', (req, res, next) => {
 
 
@@ -45,7 +44,18 @@ app.post('/addleaves', (req, res, next) => {
     text: 'I am writing this letter to inform you that I need to take a day of absence on the  Date '+moment(req.body.date).format("DD-MM-YYYY")+' .' , 
     html: ''
 };
-  transporter.sendMail(mailOptions,(error,info)=>{
+
+var transporter = nodemailer.createtransport('smtps://sumitchoudhary727@gmail.com:sumit1994');
+
+
+
+// send mail with defined transport object
+transporter.sendMail(mailOptions, function(error, info){
+if(error){
+return console.log(error);
+}
+
+ /* transporter.sendMail(mailOptions,(error,info)=>{
   	if(error){
   		return console.log(error);
   	}
@@ -56,7 +66,7 @@ app.post('/addleaves', (req, res, next) => {
   // Preview only available when sending through an Ethereal account
   console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
   // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
-})
+})*/
 
 			   return res.status(200).json({
 		          message: " Added Leave Successful",
