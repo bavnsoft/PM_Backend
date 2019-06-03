@@ -41,7 +41,7 @@ app.post('/addleaves', (req, res, next) => {
     from: '"Rahul chauhan" <from@example.com>',
     to: 'bavnsofts@gmail.com',
     subject: 'Personal Leave Application',
-    text: 'I am writing this letter to inform you that I need to take a day of absence on the  Date '+moment(req.body.date).format("DD-MM-YYYY")+' .' , 
+    text: 'I am writing this letter to inform you that I need to take a day of absence on the  Date '+req.body.date+' .' , 
     html: ''
 };
 
