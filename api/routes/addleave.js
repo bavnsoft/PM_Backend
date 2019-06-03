@@ -8,6 +8,7 @@ app.use(bodyParser.json());
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 const Cryptr = require('cryptr');
+const moment = require('moment');
 const cryptr = new Cryptr('myTotalySecretKey');
 
  let transporter = nodemailer.createTransport({
@@ -22,7 +23,7 @@ const cryptr = new Cryptr('myTotalySecretKey');
     }
   });
 app.post('/addleaves', (req, res, next) => {
-console.log (req.body);
+
 
      var user_id = req.body.user_id;
 			console.log(user_id)
@@ -51,7 +52,7 @@ console.log (req.body);
     from: '"Rahul chauhan" <from@example.com>',
     to: 'bavnsofts@gmail.com',
     subject: 'Personal Leave Application',
-    text: 'I am writing this letter to inform you that I need to take a day of absence on the  Date  2019 this month.' , 
+    text: 'I am writing this letter to inform you that I need to take a day of absence on the  Date '+moment(req.body.date).format("DD-MM-YYYY")+' .' , 
     html: ''
 };
   transporter.sendMail(mailOptions,(error,info)=>{
@@ -103,12 +104,12 @@ app.post('/getleaves', (req, res, next) => {
 
 app.post('/ApprovedDisapprovedCancelLeave', (req, res, next) => {
    console.log(req.body);
-   var emp_id = req.body.emp_id;
+   var emp_id = req.body.user_id;
    var status = req.body.status;
 
   // return false
 
-	employee.find({'_id':"5cda831abf80ac17acc9b543"}).then(result=>{
+	employee.find({'_id':emp_id}).then(result=>{
 
 		             var message = '';
 		             if(status=="Approved"){
