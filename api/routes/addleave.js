@@ -49,39 +49,29 @@ var transporter = nodemailer.createtransport('smtps://sumitchoudhary727@gmail.co
 
 
 
-// send mail with defined transport object
-transporter.sendMail(mailOptions, function(error, info){
-if(error){
-return console.log(error);
-}
+         // send mail with defined transport object
+			transporter.sendMail(mailOptions, function(error, info){
+						if(error){
+						    return console.log(error);
+							}else{
 
- /* transporter.sendMail(mailOptions,(error,info)=>{
-  	if(error){
-  		return console.log(error);
-  	}
 
-  console.log("Message sent: %s", info.messageId);
-  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-
-  // Preview only available when sending through an Ethereal account
-  console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-  // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
-})*/
 
 			   return res.status(200).json({
 		          message: " Added Leave Successful",
 		          status: true,
 		         
 		        });
+			}
 		   })
 		   .catch(err => {
-		   	 console.log(err);
 		      return res.status(201).json({
 		          message: "Something went wrong,Please try again",
 		          status: false,
 		        });
 		   })
 
+});
 });
 
 
