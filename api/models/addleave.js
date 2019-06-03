@@ -8,6 +8,7 @@ const addleave = new Schema({
     typeofleave: { type: String},
     Description: { type: String},
     user_id: { type: String},
+    startDate: { type: String},
 
 })
 
