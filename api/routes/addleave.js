@@ -11,17 +11,7 @@ const Cryptr = require('cryptr');
 const moment = require('moment');
 const cryptr = new Cryptr('myTotalySecretKey');
 
- let transporter = nodemailer.createTransport({
-    //host: "smtp.ethereal.email",
-    //port: 587,
-    //secure: false, // true for 465, false for other ports
-        service: "Gmail",
-
-    auth: {
-      user: "sumitchoudhary727@gmail.com", // generated ethereal user
-      pass: "sumit1994" // generated ethereal password
-    }
-  });
+var transporter = nodemailer.createtransport('smtps://sumitchoudhary727@gmail.com:sumit1994');
 app.post('/addleaves', (req, res, next) => {
 
 
