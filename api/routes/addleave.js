@@ -9,7 +9,7 @@ var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 const Cryptr = require('cryptr');
 const cryptr = new Cryptr('myTotalySecretKey');
-
+/*
  let transporter = nodemailer.createTransport({
     //host: "smtp.ethereal.email",
     //port: 587,
@@ -20,7 +20,20 @@ const cryptr = new Cryptr('myTotalySecretKey');
       user: "sumitchoudhary727@gmail.com", // generated ethereal user
       pass: "sumit1994" // generated ethereal password
     }
-  });
+  });*/
+ var transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    auth: {
+        user: 'sumitchoudhary727@gmail.com', // Your email id
+        pass: 'sumit1994' // Your password
+    },
+    tls: {
+        // do not fail on invalid certs
+        rejectUnauthorized: false
+    }
+});
 app.post('/addleaves', (req, res, next) => {
 console.log (req.body);
 
