@@ -60,7 +60,7 @@ console.log (req.body);
  
 
   // send mail with defined transport object
- /* var mailOptions = {
+  var mailOptions = {
     from: '"Rahul chauhan" <from@example.com>',
     to: 'bavnsofts@gmail.com',
     subject: 'Personal Leave Application',
@@ -79,42 +79,6 @@ console.log (req.body);
   console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
   // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
 })
-
-	
-
-*/
-
-
-
-var nodemailer = require('nodemailer');
-var transporter = nodemailer.createTransport({
-    service: 'Gmail',
-    auth: {
-        user: 'foobar@gmail.com',
-        pass: 'foobar'
-    }
-});
-
-router.post('/send',function(req,res){
-
-    var mailOptions = {
-        from: '"Rahul chauhan" <from@example.com>',
-        to: 'bavnsofts@gmail.com',
-        subject:  'Personal Leave Application',
-        text:'I am writing this letter to inform you that I need to take a day of absence on the  Date '+moment(req.body.date).format("DD-MM-YYYY")+' .' , 
-        html: "<p>Hello " + req.body.email + " </p>",
-        bcc: "fred@gmail.com"
-    };
-    transporter.sendMail(mailOptions, function(error, info){
-        if(error){
-            console.log(error);
-        }else{
-            console.log('Message sent: ' + info.response);
-            res.send(200);
-        }
-    });        
-});
-
 
 			   return res.status(200).json({
 		          message: " Added Leave Successful",
