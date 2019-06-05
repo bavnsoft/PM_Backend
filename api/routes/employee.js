@@ -22,7 +22,7 @@ app.post('/employee', (req, res, next) => {
 		    if (err)
 		        console.log("error is:" + err);
 		});
-		console.log(JSON.stringify(req.body.employeedepartment))
+	
 		 var empPass = Math.random().toString(36).slice(-8);
 			
 				let Data = new employee({

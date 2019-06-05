@@ -91,7 +91,7 @@ app.post('/getalltask', (req, res, next) => {
   var user_id =req.body.user_id;
 
 	console.log(user_id)
-	addtask.find({}).populate('user_id','employeename').then(result=>{
+	newtask.find({}).populate('user_id','employeename').then(result=>{
 		console.log(JSON.stringify(result[0].discription));
 			return res.status(200).json({
 			          result: result,
@@ -174,6 +174,59 @@ app.post('/addmilestone', (req, res, next) => {
 
 });*/
 
+app.post('/GettaskById', (req, res, next) => {
+   console.log(req.body)
+	newtask.find({_id:req.body.id}).then(result=>{
+					return res.status(200).json({
+					          result: result,
+					          status: true,
+					          
+					});
+			});
+  		  
+})
+
+
+
+
+app.post('/editemptask', (req, res, next) => {
+console.log(req.files)
+console.log(req.body)
+
+   
+addtask.update({'_id': req.body.id}, {'$set': {
+                    'projectName': req.body.projectName,
+                    'description': req.body.description,
+                    'hours': req.body.hours,
+                    'id': req.body.id,
+                }}).then(result=>{
+                     return res.status(201).json({message:"Task updated successfull",  status: true});
+
+		             });
+
+		
+
+	
+
+});
+
+
+app.post('/getempolyestask', (req, res, next) => {
+
+		  var user_id =req.body.user_id;
+
+			console.log(user_id)
+			addtask.find({}).then(result=>{
+					return res.status(200).json({
+					          result: result,
+					          status: true,
+					          
+					});
+			});
+
+	
+
+});
 
 
 

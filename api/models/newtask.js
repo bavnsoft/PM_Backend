@@ -7,6 +7,7 @@ const newtask = new Schema({
     date: { type: String},
     user_id: { type: String},  
     status: { type: String},
+    user_id: { type: Schema.Types.ObjectId, ref: "employee" },
      })
 
 module.exports = mongoose.model('newTask', newtask);
