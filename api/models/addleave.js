@@ -9,6 +9,7 @@ const addleave = new Schema({
     Description: { type: String},
     user_id: { type: String},
     startDate: { type: String},
+    status: { type: String},
 
 })
 

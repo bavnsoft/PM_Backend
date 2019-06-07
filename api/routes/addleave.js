@@ -26,15 +26,15 @@ app.post('/addleaves', (req, res, next) => {
 
 
      var user_id = req.body.user_id;
-			console.log(user_id)
-
+		
 	let Data = new addleave({
 		  EmployeeName: req.body.EmployeeName,
-		  typeofDay: req.body.typeofDay,
-		  typeofleave: req.body.typeofleave,
 		  startDate: req.body.startDate,
 	      Description: req.body.Description,
+	      typeofDay: req.body.typeofDay,
+	      typeofleave: req.body.typeofleave,
 	      user_id:req.body.user_id,
+	      status:"Pending",
 
 	 
 	 });
@@ -88,36 +88,62 @@ app.post('/addleaves', (req, res, next) => {
 
 
 app.post('/getleaves', (req, res, next) => {
+   console.log(req.body.user_id)
+   var user_id = req.body.user_id;
+   var role = req.body.role;
+   if(role=="user"){
+   		addleave.find({user_id:user_id}).sort({"_id":-1}).then(result=>{
 
-	addleave.find({}).then(result=>{
 					return res.status(200).json({
 					          result: result,
 					          status: true,
 					          
 					});
 			});
+
+   }else{
+   		addleave.find({}).sort({"_id":-1}).then(result=>{
+
+					return res.status(200).json({
+					          result: result,
+					          status: true,
+					          
+					});
+			});
+   }
+
      	
   
     
 			  
 })
 
-app.post('/ApprovedDisapprovedCancelLeave', (req, res, next) => {
+app.post('/ApproveDispproveCancelLeave', (req, res, next) => {
    console.log(req.body);
-   var emp_id = req.body.user_id;
+   var emp_id = req.body.emp_id;
    var status = req.body.status;
+   var role = req.body.role;
 
   // return false
 
 	employee.find({'_id':emp_id}).then(result=>{
 
+	
+
+		  addleave.update({'user_id': emp_id}, {'$set': {
+                    'status': status,
+                                
+                        }}).then(result1=>{
+
+              
+                 
 		             var message = '';
-		             if(status=="Approved"){
-                       message = "Your leave approved";
-                       message1 = "Leave approved successfully";
-		             }else if(status=="Disapproved"){
-                        message = "Your leave disapproved.";
-                        message1 = "Leave disapproved successfully.";
+		             if(status=="Approve"){
+                       message = "Your leave approve";
+                       message1 = "Leave approve successfully";
+		             }else if(status=="Dispprove"){
+                        message = "Your leave dispprove.";
+                        message1 = "Leave dispprove successfully.";
 		             }else{
                          message = "Your leave cancelled.";
                          message1 = "Leave cancelled successfully.";
@@ -135,7 +161,9 @@ app.post('/ApprovedDisapprovedCancelLeave', (req, res, next) => {
 						  	}else{
 						  		 console.log("Message sent: %s", info.messageId);
 								  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-
+                                  if(role=="user" && status=="Cancel"){
+							          addleave.remove({user_id:emp_id})
+									}
 								  // Preview only available when sending through an Ethereal account
 								  console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
 								  // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
@@ -145,11 +173,14 @@ app.post('/ApprovedDisapprovedCancelLeave', (req, res, next) => {
 								         
 								        });
 
+
 						  	}
 
 						 
 						})
 			});
+
+         });
 
 
      	

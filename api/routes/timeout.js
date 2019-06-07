@@ -28,24 +28,25 @@ app.post('/timeout', (req, res, next) => {
 	 Data.save()
 		   .then(timeout => {
 
-		   	   newtask.remove({user_id:user_id})
-				   .then(timeout => {moment(),moment(TimeIn)
+		   	   addtask.remove({user_id:user_id})
+				   .then(remove => {
+				   	console.log(remove)
 
 		      });
 
 
-		   	    addtask.remove( { user_id:user_id});
-
-		   	    addtask.update({'user_id': user_id}, {'$set': {'timeout': TimeOut}
+		   	   // addtask.remove( { user_id:user_id});
+            console.log(user_id,'----------------------')
+		   	    newtask.update({'user_id': user_id}, {'$set': {'timeout': TimeOut}
 					}).then(result=>{
-							return res.status(201).json({message:"Task approved successfully",  status: true});
+							return res.status(201).json({message:"You Have clockout Successfully",  status: true});
 
 					});
-					   return res.status(200).json({
+					 /*  return res.status(200).json({
 				          message: "You Have clockout Successfully",
 				          status: true,
 				         
-				        });
+				        });*/
 		   })
 		   .catch(err => {
 		   	 console.log(err);

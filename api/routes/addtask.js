@@ -20,6 +20,8 @@ app.post('/addtask', (req, res, next) => {
 		 user_id:req.body.user_id,
 		 project_id:JSON.stringify(req.body.projectName) ,
 		 Hours:JSON.stringify(req.body.Hours),
+		 employeename: req.body.employeename,
+		 
 		 status:"Disapprove",
 	 });
 
@@ -73,7 +75,7 @@ app.post('/featchTask', (req, res, next) => {
   var user_id =req.body.user_id;
 
 	console.log(user_id)
-	newtask.find({'user_id':user_id}).then(result=>{
+	addtask.find({'user_id':user_id}).then(result=>{
 			return res.status(200).json({
 			          result: result,
 			          status: true,
@@ -88,11 +90,8 @@ app.post('/featchTask', (req, res, next) => {
 
 app.post('/getalltask', (req, res, next) => {
 
-  var user_id =req.body.user_id;
 
-	console.log(user_id)
-	newtask.find({}).populate('user_id','employeename').then(result=>{
-		console.log(JSON.stringify(result[0].discription));
+	newtask.find({}).populate('user_id','employeename').sort({"_id":-1}).then(result=>{
 			return res.status(200).json({
 			          result: result,
 			          status: true,
@@ -176,7 +175,7 @@ app.post('/addmilestone', (req, res, next) => {
 
 app.post('/GettaskById', (req, res, next) => {
    console.log(req.body)
-	newtask.find({_id:req.body.id}).then(result=>{
+	newtask.find({_id:req.body.id}).sort({"_id":-1}).then(result=>{
 					return res.status(200).json({
 					          result: result,
 					          status: true,
@@ -189,18 +188,26 @@ app.post('/GettaskById', (req, res, next) => {
 
 
 
-app.post('/editemptask', (req, res, next) => {
-console.log(req.files)
+app.post('/editMyTaks', (req, res, next) => {
 console.log(req.body)
 
    
-addtask.update({'_id': req.body.id}, {'$set': {
-                    'projectName': req.body.projectName,
-                    'description': req.body.description,
-                    'hours': req.body.hours,
+newtask.update({'user_id': req.body.user_id}, {'$set': {
+                    'projectName': JSON.stringify(req.body.projectName),
+                    'description': JSON.stringify(req.body.description),
+                    'hours': JSON.stringify(req.body.hours),
                     'id': req.body.id,
                 }}).then(result=>{
-                     return res.status(201).json({message:"Task updated successfull",  status: true});
+   
+addtask.update({'user_id': req.body.user_id}, {'$set': {
+                    'projectName': JSON.stringify(req.body.projectName),
+                    'description': JSON.stringify(req.body.description),
+                    'hours': JSON.stringify(req.body.hours),
+                    'id': req.body.id,
+                }}).then(result=>{
+                     return res.status(201).json({message:"Task updated successfully",  status: true});
+
+		             });
 
 		             });
 
@@ -212,11 +219,13 @@ addtask.update({'_id': req.body.id}, {'$set': {
 
 
 app.post('/getempolyestask', (req, res, next) => {
-
+      console.log(req.body.user_id)
 		  var user_id =req.body.user_id;
+          var role = req.body.role;
+          if(role=="user"){
 
-			console.log(user_id)
-			addtask.find({}).then(result=>{
+			//console.log(user_id)
+			addtask.find({user_id:user_id}).sort({"_id":-1}).then(result=>{
 					return res.status(200).json({
 					          result: result,
 					          status: true,
@@ -224,8 +233,16 @@ app.post('/getempolyestask', (req, res, next) => {
 					});
 			});
 
-	
+	}else{
+	addtask.find({}).sort({"_id":-1}).then(result=>{
+					return res.status(200).json({
+					          result: result,
+					          status: true,
+					          
+					});
+			});
 
+}
 });
 
 

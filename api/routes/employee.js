@@ -33,6 +33,8 @@ app.post('/employee', (req, res, next) => {
 					  EmpPassword: empPass,
 					  employeedepartment: req.body.employeedepartment,
 				      employeeprofile: req.protocol+'://'+req.get('host')+'/Emp_img/'+pictures,
+				      role: "user",
+
 				 });
 
 
@@ -60,14 +62,13 @@ app.post('/employee', (req, res, next) => {
 
 
 app.post('/GetEmpById', (req, res, next) => {
-
 	employee.find({_id:req.body.id}).then(result=>{
-					return res.status(200).json({
-					          result: result,
-					          status: true,
-					          
-					});
-			});
+		return res.status(200).json({
+		          result: result,
+		          status: true,
+		          
+		});
+	 });
   		  
 })
 
@@ -75,7 +76,6 @@ app.post('/getempolyes', (req, res, next) => {
 
 		  var user_id =req.body.user_id;
 
-			console.log(user_id)
 			employee.find({}).then(result=>{
 					return res.status(200).json({
 					          result: result,

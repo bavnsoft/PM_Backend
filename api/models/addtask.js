@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const addtask = new Schema({
+    employeename: { type: String},
+
     project_id: { type: String},
     discription: { type: String},
     date: { type: String},

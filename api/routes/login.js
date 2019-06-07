@@ -14,12 +14,13 @@ app.post('/', (req, res, next) => {
   
      	 employee.find({$and: [{employeeemail: Email},{EmpPassword: password}]}).then(user=>{
 			    if (user.length==0){
-			    	   res.status(201).send({ status: true, user_id:null,message: 'Invalid login credentials' });
+			    	   res.status(201).send({ status: false, user_id:null,message: 'Invalid login credentials' });
 			    }else{ 
-                       res.status(200).send({ status: true, message:"Login successfull" ,user_id:user[0]._id});
+                       res.status(200).send({ status: true, message:"Login successfull" ,user_id:user[0]._id,role:user[0].role});
                         
 					    
 			     }
+
 		     }).catch(err => {
 			   	 console.log(err);
 			      return res.status(504).json({
