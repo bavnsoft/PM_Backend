@@ -111,11 +111,10 @@ var empl_id = [];
 
 
 app.post('/editempolyes', (req, res, next) => {
-console.log(req.files)
-console.log(req.body)
 
 
    if(req.files){
+   	
    	  var data = req.files.employeeprofile.name;
 		var splitname = data.split('.');
 		var time = new Date().getTime() / 1000;
@@ -128,14 +127,13 @@ console.log(req.body)
 		        console.log("error is:" + err);
 		});
 
-		var employeeprofile = req.protocol+'://'+req.get('host')+'/Emp_img/'+pictures;
+		 var employeeprofile = req.protocol+'://'+req.get('host')+'/Emp_img/'+pictures;
        }else{
-   	  var employeeprofile = req.body.employeeprofile;
+   	     var employeeprofile = req.body.employeeprofile;
    }
-employee.update({'_id': req.body.id}, {'$set': {
+        employee.update({'_id': req.body.id}, {'$set': {
                     'employeeid': req.body.employeeid,
                     'employeename': req.body.employeename,
-                    'employeeemail': req.body.employeeemail,
                     'PhoneNo': req.body.PhoneNo,
                     'employeedepartment': req.body.employeedepartment,
                     'employeeprofile': employeeprofile

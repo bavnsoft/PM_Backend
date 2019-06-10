@@ -30,7 +30,6 @@ app.post('/employee', (req, res, next) => {
 	      employeeprofile: req.protocol+'://'+req.get('host')+'/Emp_img/'+pictures,
 	 });
 
-	console.log('00000000000000000000000000')
 
 	 Data.save()
 		   .then(Signupresult => {
@@ -48,3 +47,4 @@ app.post('/employee', (req, res, next) => {
 		        });
 		   })
 
+})

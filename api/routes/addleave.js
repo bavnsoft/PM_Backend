@@ -118,7 +118,7 @@ app.post('/getleaves', (req, res, next) => {
 			  
 })
 
-app.post('/ApproveDispproveCancelLeave', (req, res, next) => {
+app.post('/ApproveDisapproveCancelLeave', (req, res, next) => {
    console.log(req.body);
    var emp_id = req.body.emp_id;
    var status = req.body.status;
@@ -140,10 +140,10 @@ app.post('/ApproveDispproveCancelLeave', (req, res, next) => {
 		             var message = '';
 		             if(status=="Approve"){
                        message = "Your leave approve";
-                       message1 = "Leave approve successfully";
-		             }else if(status=="Dispprove"){
-                        message = "Your leave dispprove.";
-                        message1 = "Leave dispprove successfully.";
+                       message1 = "Leave Added Successfully";
+		             }else if(status=="Disapprove"){
+                        message = "Your leave disapprove.";
+                        message1 = "Leave disapprove successfully.";
 		             }else{
                          message = "Your leave cancelled.";
                          message1 = "Leave cancelled successfully.";

@@ -56,6 +56,28 @@ app.post('/project', (req, res, next) => {
 
 });
 
+
+/*app.post('/autogenrate', (req, res, next) => {
+
+
+var empl_id = [];
+			project.find({}).then(result=>{
+				for(let i=0;i<result.length;i++){
+		     // console.log(result[i].employeeid)
+
+                   empl_id.push(result[i].serialno)
+	            }
+	            console.log(Math.max.apply(null, empl_id))
+		         return res.status(200).json({
+			          maxvalue: Math.max.apply(null, empl_id)+1,
+			          status: true,
+
+				});
+           });
+
+});
+*/
+
 app.post('/getproject', (req, res, next) => {
 
  

@@ -105,7 +105,6 @@ app.post('/getalltask', (req, res, next) => {
 app.post('/TaskApprove', (req, res, next) => {
 
           var emp_id =req.body.emp_id;
-          console.log(emp_id,'-----')
 			newtask.update({'user_id': emp_id}, {'$set': {'status': 'Approved'}
 			}).then(result=>{
 					addtask.update({'user_id': emp_id}, {'$set': {'status': 'Approved'}
@@ -174,7 +173,6 @@ app.post('/addmilestone', (req, res, next) => {
 });*/
 
 app.post('/GettaskById', (req, res, next) => {
-   console.log(req.body)
 	newtask.find({_id:req.body.id}).sort({"_id":-1}).then(result=>{
 					return res.status(200).json({
 					          result: result,
@@ -189,21 +187,17 @@ app.post('/GettaskById', (req, res, next) => {
 
 
 app.post('/editMyTaks', (req, res, next) => {
-console.log(req.body)
 
-   
 newtask.update({'user_id': req.body.user_id}, {'$set': {
-                    'projectName': JSON.stringify(req.body.projectName),
+                    'project_id': JSON.stringify(req.body.projectName),
                     'description': JSON.stringify(req.body.description),
-                    'hours': JSON.stringify(req.body.hours),
-                    'id': req.body.id,
+                    'hours': JSON.stringify(req.body.Hours),
                 }}).then(result=>{
    
 addtask.update({'user_id': req.body.user_id}, {'$set': {
-                    'projectName': JSON.stringify(req.body.projectName),
-                    'description': JSON.stringify(req.body.description),
-                    'hours': JSON.stringify(req.body.hours),
-                    'id': req.body.id,
+                    'project_id': JSON.stringify(req.body.projectName),
+                    'discription': JSON.stringify(req.body.description),
+                    'Hours': JSON.stringify(req.body.Hours),
                 }}).then(result=>{
                      return res.status(201).json({message:"Task updated successfully",  status: true});
 
