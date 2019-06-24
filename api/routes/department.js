@@ -44,7 +44,7 @@ app.post('/getdepartment', (req, res, next) => {
 		  var user_id =req.body.user_id;
 
 			console.log(user_id)
-			department.find({}).then(result=>{
+			department.find({}).sort({"_id":-1}).then(result=>{
 					return res.status(200).json({
 					          result: result,
 					          status: true,

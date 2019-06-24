@@ -47,7 +47,7 @@ app.post('/overtime', (req, res, next) => {
 
 app.post('/getovertime', (req, res, next) => {
 		  var user_id =req.body.user_id;
-            overtime.find({}).then(result=>{
+            overtime.find({}).sort({"_id":-1}).then(result=>{
                     return res.status(200).json({
                               result: result,
                               status: true,
